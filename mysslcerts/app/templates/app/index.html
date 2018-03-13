@@ -1,0 +1,43 @@
+{% load staticfiles %}
+{% block header %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Custom Certificates</title>
+        <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static "app/css/main.css" %}">
+    </head>
+    <body>
+
+        <header id="header">
+            <div id="logo">
+                <img src="{% static "app/images/logo-print.png" %}" width="300">
+            </div>
+            <nav>
+                <div class="innertube">
+                    <ul>
+                        <li><a href="{% url 'generate_ca_and_certificate' %}">Create CA and SSL Certficate</a></li>
+                        <li><a href="{% url 'generate_certificate_from_uploaded_CA' %}">Upload CA and Create SSL Certificate</a></li>
+                        {% comment %}
+                        <li><a href="{% url 'verify_certificate' %}">Verify CA and SSL Certificates</a></li>
+                        {% endcomment %}
+                        <li><a href="{% url 'cheatsheet' %}">SSL Cheat Sheet</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+{% endblock %}
+
+{% block body_document %}
+{% endblock %}
+
+{% block body_end %}
+       </main>
+    </body>
+</html>
+
+{% endblock %}

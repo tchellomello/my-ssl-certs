@@ -1,0 +1,22 @@
+{% extends "app/index.html" %}
+{% load staticfiles %}
+
+{% block body_document %}
+    <h1>Cheat Sheet</h1>
+
+
+{% for question in questions %}
+<a href="#{{ forloop.counter }}"><h3>{{ question.text }}</h3></a>
+{% endfor %}
+
+<br><hr><br>
+
+{% for question in questions %}
+<h3 id="{{ forloop.counter }}">{{ question.text }}</h3>
+<pre>
+{{ question.answer|safe }}
+</pre>
+<br><hr><br>
+{% endfor %}
+
+{% endblock %}

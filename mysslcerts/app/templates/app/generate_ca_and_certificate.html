@@ -1,0 +1,85 @@
+{% extends "app/index.html" %}
+{% load staticfiles %}
+
+{% block body_document %}
+      <form action="" method="post">
+        {% csrf_token %}
+        <h1>My Custom Certificates</h1>
+
+        {{ form.non_field_errors }}
+        <fieldset>
+          <legend><span class="number">1</span>Certificate Authority info</legend>
+
+            {{ form.ca_common_name.errors }}
+            <label for={{ form.ca_common_name.id_for_label }}>Common Name (CN)</label>
+            {{ form.ca_common_name }}
+
+            {{ form.ca_country.errors }}
+            <label for={{ form.ca_country.id_for_label }}>Country (C)</label>
+            {{ form.ca_country }}
+
+            {{ form.ca_state.errors }}
+            <label for="{{ form.ca_state.id_for_label }}">State (ST)</label>
+            {{ form.ca_state }}
+
+            {{ form.ca_city.errors }}
+            <label for="{{ form.ca_city.id_for_label }}">City (L)</label>
+            {{ form.ca_city }}
+
+            {{ form.ca_organization.errors }}
+            <label for="{{ form.ca_organization.id_for_label }}">Organization (O)</label>
+            {{ form.ca_organization }}
+
+            {{ form.ca_organizational_unit.errors }}
+            <label for="{{ form.ca_organizational_unit.id_for_label }}">Organizational Unit (OU)</label>
+            {{ form.ca_organizational_unit }}
+
+            {{ form.ca_days.errors }}
+            <label for="{{ form.ca_days.id_for_label }}">Days to Expire</label>
+            {{ form.ca_days }}
+
+            {{ form.ca_email.errors }}
+            <label for="{{ form.ca_email.id_for_label }}">Email</label>
+            {{ form.ca_email }}
+
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="number">2</span>Certificate Sign Request</legend>
+
+            {{ form.cert_common_name.errors }}
+            <label for={{ form.cert_common_name.id_for_label }}>Common Name (CN)</label>
+            {{ form.cert_common_name }}
+
+            {{ form.cert_country.errors }}
+            <label for={{ form.cert_country.id_for_label }}>Country (C)</label>
+            {{ form.cert_country }}
+
+            {{ form.cert_state.errors }}
+            <label for="{{ form.cert_state.id_for_label }}">State (ST)</label>
+            {{ form.cert_state }}
+
+            {{ form.cert_city.errors }}
+            <label for="{{ form.cert_city.id_for_label }}">City (L)</label>
+            {{ form.cert_city }}
+
+            {{ form.cert_organization.errors }}
+            <label for="{{ form.cert_organization.id_for_label }}">Organization (O)</label>
+            {{ form.cert_organization }}
+
+            {{ form.cert_organizational_unit.errors }}
+            <label for="{{ form.cert_organizational_unit.id_for_label }}">Organizational Unit (OU)</label>
+            {{ form.cert_organizational_unit }}
+
+            {{ form.cert_days.errors }}
+            <label for="{{ form.cert_days.id_for_label }}">Days to Expire</label>
+            {{ form.cert_days }}
+
+            {{ form.cert_email.errors }}
+            <label for="{{ form.cert_email.id_for_label }}">Email</label>
+            {{ form.cert_email }}
+
+        </fieldset>
+        <button type="submit">Generate</button>
+      </form>
+{% endblock %}
