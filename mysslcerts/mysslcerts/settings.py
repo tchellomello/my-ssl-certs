@@ -25,11 +25,9 @@ SECRET_KEY = 's7d)b*)@js2vz378)$f7n+ilrki^+5zi543hq!r2wfd-bbx+$_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-## add the desired hosts here
+## modify the desired hosts here
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    #'*',
+    '*',
 ]
 
 
