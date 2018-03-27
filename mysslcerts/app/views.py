@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, redirect, render, HttpResponse
 from app.forms import *
 from app.models import Question, Tag, Topic
 from app.libs import CustomSat6Certs
+from app.vars import *
 
 def cheatsheet(request):
     questions = Question.objects.filter(enabled=True).order_by('sort_order')
@@ -48,18 +49,21 @@ def generate_ca_and_certificate(request):
             return response
     else:
         form = generate_ca_and_certificateForm(initial={
-                                        'ca_country' : 'US',
-                                        'ca_state'   : 'North Carolina',
-                                        'ca_city'    : 'Raleigh',
-                                        'ca_organization'  : 'MyOrg',
-                                        'ca_organizational_unit' : '',
-                                        'ca_days'    : 365,
-                                        'cert_country' : 'US',
-                                        'cert_state'   : 'North Carolina',
-                                        'cert_city'    : 'MyOrg',
-                                        'cert_organization'  : 'MyOrg',
-                                        'cert_organizational_unit' : '',
-                                        'cert_days'    : 365,
+                                        'ca_country' : DEFAULT_CA_C,
+                                        'ca_state'   : DEFAULT_CA_ST,
+                                        'ca_city'    : DEFAULT_CA_L,
+                                        'ca_organization'  : DEFAULT_CA_O,
+                                        'ca_organizational_unit' : DEFAULT_CA_OU,
+                                        'ca_days'    : DEFAULT_CA_DAYS,
+                                        'ca_email': DEFAULT_CA_EMAIL,
+
+                                        'cert_country' : DEFAULT_CERT_C,
+                                        'cert_state'   : DEFAULT_CERT_ST,
+                                        'cert_city'    : DEFAULT_CERT_L,
+                                        'cert_organization'  : DEFAULT_CERT_O,
+                                        'cert_organizational_unit' : DEFAULT_CERT_OU,
+                                        'cert_email': DEFAULT_CERT_EMAIL,
+                                        'cert_days'    : DEFAULT_CERT_DAYS,
                                         })
     return render(request, 'app/generate_ca_and_certificate.html', locals())
 
@@ -98,12 +102,13 @@ def generate_certificate_from_uploaded_CA(request):
             return response
     else:
         form = generate_certificate_from_uploaded_CAForm(initial={
-                                        'cert_country' : 'US',
-                                        'cert_state'   : 'North Carolina',
-                                        'cert_city'    : 'Raleigh',
-                                        'cert_organization'  : 'MyOrg',
-                                        'cert_organizational_unit' : '',
-                                        'cert_days'    : 365,
+                                        'cert_country' : DEFAULT_CERT_C,
+                                        'cert_state'   : DEFAULT_CERT_ST,
+                                        'cert_city'    : DEFAULT_CERT_L,
+                                        'cert_organization'  : DEFAULT_CERT_O,
+                                        'cert_organizational_unit' : DEFAULT_CERT_OU,
+                                        'cert_days'    : DEFAULT_CERT_EMAIL,
+                                        'cert_email'   : DEFAULT_CERT_DAYS,
                                         })
     return render(request, 'app/generate_certificate_from_uploaded_CA.html', locals())
 
