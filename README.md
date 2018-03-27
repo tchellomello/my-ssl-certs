@@ -1,11 +1,11 @@
 # my-ssl-certs
 Simple based Django application to request and sign custom SSL certificates
 
-![](https://github.com/tchellomello/my-ssl-certs/blob/master/my-ssl-certs.png)
+![](https://github.com/tchellomello/my-ssl-certs/raw/master/my-ssl-certs.png)
 
 ## Docker
 ```bash
-docker run -p 8000:8000 tchellomello/mysslcerts:latest
+docker run -p 8000:8000 tchellomello/my-ssl-certs:latest
 ```
 
 ## Environment Variables
@@ -57,5 +57,5 @@ docker run -d -p 8000:8000 \
     -e CA_C='US' -e CA_ST='North Carolina' \
     -e CA_L='Raleigh' -e CA_O='IT' -e CA_OUT='DTI' \
     -e CA_EMAIL='me@example.com' -e CA_DAYS=365 \
-    tchellomello/mysslcerts:latest
+    tchellomello/my-ssl-certs:latest
 ```
