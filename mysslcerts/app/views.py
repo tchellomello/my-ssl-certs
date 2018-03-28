@@ -107,8 +107,8 @@ def generate_certificate_from_uploaded_CA(request):
                                         'cert_city'    : DEFAULT_CERT_L,
                                         'cert_organization'  : DEFAULT_CERT_O,
                                         'cert_organizational_unit' : DEFAULT_CERT_OU,
-                                        'cert_days'    : DEFAULT_CERT_EMAIL,
-                                        'cert_email'   : DEFAULT_CERT_DAYS,
+                                        'cert_days'    : DEFAULT_CERT_DAYS,
+                                        'cert_email'   : DEFAULT_CERT_EMAIL,
                                         })
     return render(request, 'app/generate_certificate_from_uploaded_CA.html', locals())
 
