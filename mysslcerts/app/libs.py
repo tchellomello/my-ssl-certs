@@ -43,6 +43,20 @@ class CustomSat6Certs():
         cert.get_subject().O = ca_organization
         cert.get_subject().CN = ca_common_name
 
+        #add CA extension CA:True
+        cert.add_extensions([
+            OpenSSL.crypto.X509Extension(
+                "basicConstraints", True, "CA:TRUE, pathlen:0"),
+            OpenSSL.crypto.X509Extension(
+                "keyUsage", True, "keyCertSign, cRLSign"),
+            OpenSSL.crypto.X509Extension(
+                "subjectKeyIdentifier", False, "hash", subject=cert),
+        ])
+        cert.add_extensions([
+            OpenSSL.crypto.X509Extension(
+                "authorityKeyIdentifier", False, "keyid:always",issuer=cert)
+        ])
+
         #optional
         if ca_organizational_unit:
             cert.get_subject().OU = ca_organizational_unit
