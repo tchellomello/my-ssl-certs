@@ -46,12 +46,12 @@ class CustomSat6Certs():
         #add CA extension CA:True
         cert.add_extensions([
             crypto.X509Extension(b"basicConstraints", True, b"CA:TRUE, pathlen:0"),
-            crypto.X509Extension("keyUsage", True, "keyCertSign, cRLSign"),
-            crypto.X509Extension("subjectKeyIdentifier", False, "hash", subject=cert),
+            crypto.X509Extension(b"keyUsage", True, b"keyCertSign, cRLSign"),
+            crypto.X509Extension(b"subjectKeyIdentifier", False, "bhash", subject=cert),
         ])
         cert.add_extensions([
             crypto.X509Extension(
-                "authorityKeyIdentifier", False, "keyid:always",issuer=cert)
+                b"authorityKeyIdentifier", False, b"keyid:always", issuer=cert)
         ])
 
         #optional
