@@ -19,6 +19,7 @@ class generate_ca_and_certificateForm(forms.Form):
     cert_organizational_unit = forms.CharField(label='Organizational Unit (OU)', max_length=30, required=False)
     cert_days = forms.IntegerField(label='Days to Expire', min_value=1)
     cert_email = forms.EmailField(label='Email')
+    alt_names = forms.CharField(widget=forms.Textarea, label='Alternatives DNS Names', required=False)
 
 class generate_certificate_from_uploaded_CAForm(forms.Form):
     #ca
@@ -34,4 +35,5 @@ class generate_certificate_from_uploaded_CAForm(forms.Form):
     cert_organizational_unit = forms.CharField(label='Organizational Unit (OU)', max_length=30, required=False)
     cert_days = forms.IntegerField(label='Days to Expire', min_value=1)
     cert_email = forms.EmailField(label='Email')
+    alt_names = forms.CharField(widget=forms.Textarea, label='Alternatives DNS Names', required=False)
 

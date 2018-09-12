@@ -79,6 +79,10 @@
             <label for="{{ form.cert_email.id_for_label }}">Email</label>
             {{ form.cert_email }}
 
+            {{ form.alt_names.errors }}
+            <label for="{{ form.alt_names.id_for_label }}">Alternatives DNS Names</label>
+            {{ form.alt_names }}
+
         </fieldset>
         <button type="submit">Generate</button>
       </form>

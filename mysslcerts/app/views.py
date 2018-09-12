@@ -30,6 +30,7 @@ def generate_ca_and_certificate(request):
             cert_organizational_unit = form.cleaned_data['cert_organizational_unit']
             cert_days = form.cleaned_data['cert_days']
             cert_email = form.cleaned_data['cert_email']
+            alt_names_list = form.cleaned_data['alt_names']
 
             obj = CustomSat6Certs(zip_filename=cert_common_name)
 
@@ -41,7 +42,8 @@ def generate_ca_and_certificate(request):
             #create certificate
             obj.create_cert(cert_country=cert_country, cert_state=cert_state, cert_city=cert_city,
                     cert_organization=cert_organization, cert_organizational_unit=cert_organizational_unit,
-                    cert_common_name=cert_common_name, cert_days=cert_days)
+                    cert_common_name=cert_common_name, cert_days=cert_days,
+                    alt_names_list=alt_names_list)
 
             zipfile = obj.get_zip()
             response = HttpResponse(zipfile, content_type='application/x-zip-compressed')
@@ -84,6 +86,7 @@ def generate_certificate_from_uploaded_CA(request):
             cert_organizational_unit = form.cleaned_data['cert_organizational_unit']
             cert_days = form.cleaned_data['cert_days']
             cert_email = form.cleaned_data['cert_email']
+            alt_names_list = form.cleaned_data['alt_names']
 
             obj = CustomSat6Certs(zip_filename=cert_common_name)
 
@@ -94,7 +97,8 @@ def generate_certificate_from_uploaded_CA(request):
             #create certificate
             obj.create_cert(cert_country=cert_country, cert_state=cert_state, cert_city=cert_city,
                     cert_organization=cert_organization, cert_organizational_unit=cert_organizational_unit,
-                    cert_common_name=cert_common_name, cert_days=cert_days)
+                    cert_common_name=cert_common_name, cert_days=cert_days,
+                    alt_names_list=alt_names_list)
 
             zipfile = obj.get_zip()
             response = HttpResponse(zipfile, content_type='application/x-zip-compressed')

@@ -45,10 +45,11 @@ class CustomSat6Certs():
 
         #add CA extension CA:True
         cert.add_extensions([
-            crypto.X509Extension(b"basicConstraints", True, b"CA:TRUE, pathlen:0"),
+            crypto.X509Extension(b"basicConstraints", True, b"CA:TRUE"),
             crypto.X509Extension(b"keyUsage", True, b"keyCertSign, cRLSign"),
             crypto.X509Extension(b"subjectKeyIdentifier", False, b"hash", subject=cert),
         ])
+
         cert.add_extensions([
             crypto.X509Extension(
                 b"authorityKeyIdentifier", False, b"keyid:always", issuer=cert)
@@ -118,7 +119,8 @@ class CustomSat6Certs():
         pass
 
     def create_cert(self, cert_country="", cert_state="", cert_city="",
-            cert_organization="", cert_organizational_unit="", cert_common_name="", cert_days=365, algo_hash="sha256"):
+            cert_organization="", cert_organizational_unit="", cert_common_name="",
+            alt_names_list="", cert_days=365, algo_hash="sha256"):
 
         if self.ca_certificate == None or self.ca_key == None:
             return "Missing CA certificate and key"
@@ -130,6 +132,23 @@ class CustomSat6Certs():
         req.get_subject().L = cert_city
         req.get_subject().O = cert_organization
         req.get_subject().CN = cert_common_name
+
+        # make sure CN is the first in the AltNames list
+        alt_names = []
+        alt_names.append("DNS:{0}".format(req.get_subject().CN))
+
+        # append the AltNames entered via webUI
+        if alt_names_list:
+            formatted_names = ["DNS: {0}".format(x) for x in alt_names_list.splitlines()]
+            alt_names = alt_names + formatted_names
+
+        #adding AltNames extensions to look good in Chrome
+        req.add_extensions([
+            crypto.X509Extension(b"keyUsage", False, b"Digital Signature, Non Repudiation, Key Encipherment"),
+            crypto.X509Extension(b"basicConstraints", False, b"CA:FALSE"),
+            crypto.X509Extension(b'extendedKeyUsage', False, b'serverAuth, clientAuth'),
+            crypto.X509Extension(b"subjectAltName", False, ", ".join(alt_names).encode()),
+        ])
 
         #optional
         if cert_organizational_unit:
@@ -152,6 +171,7 @@ class CustomSat6Certs():
         cert.set_issuer(self.ca_certificate.get_subject())
         cert.set_subject(req.get_subject())
         cert.set_pubkey(req.get_pubkey())
+        cert.add_extensions(req.get_extensions())
         cert.sign(self.ca_key, algo_hash)
 
         self.certificate_key = k
