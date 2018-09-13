@@ -41,6 +41,11 @@ class CustomSat6Certs():
         cert.get_subject().ST = ca_state
         cert.get_subject().L = ca_city
         cert.get_subject().O = ca_organization
+
+        #optional
+        if ca_organizational_unit:
+            cert.get_subject().OU = ca_organizational_unit
+
         cert.get_subject().CN = ca_common_name
 
         #add CA extension CA:True
@@ -55,9 +60,6 @@ class CustomSat6Certs():
                 b"authorityKeyIdentifier", False, b"keyid:always", issuer=cert)
         ])
 
-        #optional
-        if ca_organizational_unit:
-            cert.get_subject().OU = ca_organizational_unit
 
         cert.set_serial_number(randint(1,99))
         cert.gmtime_adj_notBefore(0)
@@ -131,6 +133,11 @@ class CustomSat6Certs():
         req.get_subject().ST = cert_state
         req.get_subject().L = cert_city
         req.get_subject().O = cert_organization
+
+        #optional
+        if cert_organizational_unit:
+            req.get_subject().OU = cert_organizational_unit
+
         req.get_subject().CN = cert_common_name
 
         # make sure CN is the first in the AltNames list
@@ -149,10 +156,6 @@ class CustomSat6Certs():
             crypto.X509Extension(b'extendedKeyUsage', False, b'serverAuth, clientAuth'),
             crypto.X509Extension(b"subjectAltName", False, ", ".join(alt_names).encode()),
         ])
-
-        #optional
-        if cert_organizational_unit:
-            req.get_subject().OU = cert_organizational_unit
 
         #create key
         k = crypto.PKey()
