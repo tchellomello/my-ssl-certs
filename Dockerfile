@@ -1,4 +1,4 @@
-FROM fedora:27
+FROM fedora:33
 MAINTAINER Marcelo Moreira de Mello <tchello.mello@gmail.com>
 
 ENV PORT 8000
