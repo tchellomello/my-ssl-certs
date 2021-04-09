@@ -21,12 +21,10 @@ RUN chown django-app:django-app -R /home/django-app
 
 # set user
 USER django-app
-RUN python3 -m venv /home/django-app/.virtualenv
-RUN source /home/django-app/.virtualenv/bin/activate
-RUN pip install -r /home/django-app/code/requirements.txt
 
 # set workdir
 WORKDIR /home/django-app/code
+RUN pip install -r /home/django-app/code/requirements.txt
 
 # export volume
 VOLUME /home/django-app/code
