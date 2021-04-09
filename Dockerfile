@@ -1,4 +1,4 @@
-FROM fedora:27
+FROM fedora:34
 MAINTAINER Marcelo Moreira de Mello <tchello.mello@gmail.com>
 
 ENV PORT 8000
@@ -10,9 +10,8 @@ RUN useradd django-app
 RUN dnf clean all && \
     dnf -y update && \
     dnf -y install python3 python3-devel python3-pip git \
-    python3-virtualenv sqlite openssl-devel && \
+    sqlite openssl-devel && \
     dnf clean all
-
 
 # create directory and mount sources there
 ADD start.sh requirements.txt mysslcerts /home/django-app/code/ 
@@ -22,7 +21,9 @@ RUN chown django-app:django-app -R /home/django-app
 
 # set user
 USER django-app
-RUN /usr/bin/py3-virtualenv -p python3.6 /home/django-app/.virtualenv
+RUN python3 -m venv /home/django-app/.virtualenv
+RUN source /home/django-app/.virtualenv/bin/activate
+RUN pip install -r /home/django-app/code/requirements.txt
 
 # set workdir
 WORKDIR /home/django-app/code
